@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-xs-12">
+    <img src="{{selectedRecipe?.imagePath}}" alt="" class="img-responsive">
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>{{selectedRecipe?.name}}</h1>
+  </div>
+  <div class="col-xs-12">
+    <button class="btn btn-success">To Shopping List</button>
+    <button class="btn btn-primary">Edit</button>
+    <button class="btn btn-danger">Delete</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <p>{{selectedRecipe?.description}}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    Ingredients
+  </div>
+</div>
+<form (ngSubmit)="addRecipe(f)" #f=ngForm>
+    <div class="col-xs-12">
+        <label>Recipe Name:</label><input type="text" #name= ngModel ngModel name="recipename" required minlength="3" class="form-control">
+       <div *ngIf=name.invalid>
+        <div *ngIf = name.errors.required style="color:red">
+            Name cannot be blank!!
+        </div>
+         <div *ngIf = name.errors.minlength style="color:red">
+            Name must have minimum 3 characters!!
+        </div>
+        </div>
+        <label>email:</label><input type="text" #name1= ngModel ngModel name="email" required email class="form-control">
+        <div *ngIf = name1.invalid>
+        <div *ngIf = name1.errors.required style="color:red">
+            Email cannot be blank !!
+        </div>
+        <div *ngIf = name1.errors.email style="color:red">
+            Email is incorrect!!
+        </div>
+        </div>
+        <label>Price:</label><input type="text" required #name2=ngModel ngModel name="price" class="form-control">
+         <div *ngIf = !name2.valid style="color:red">
+            Price is needed!!
+        </div>
+        <label>Ingredient:</label><input type="text" required #name3=ngModel ngModel name="ingredient" class="form-control">
+         <div *ngIf = !name3.valid style="color:red">
+            Ingredients are needed!
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <button type="submit" [disabled]="!f.valid" class="btn btn-success">Submit</button>
+        <button (click)="loadrecipes()">Load Recipe</button>
+        <ul>
+           <li *ngFor = "let ud of loadedPosts">
+            {{ud.recipename}}, {{ud.email}}
+            </li>
+        </ul>
+    </div>
+   
+</form>
